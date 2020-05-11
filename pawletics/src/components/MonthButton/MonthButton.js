@@ -12,12 +12,12 @@ const MonthButtonComp = styled.button`
   cursor: pointer;
   width: 100%;
   background-color: ${(props) => (props.active ? "#6236DA" : "#7c4dff")};
-  padding: 10px 0;
   display: flex;
   justify-content: center;
 `;
 const Wrapper = styled.div`
   width: 146px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: space-between;

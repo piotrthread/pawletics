@@ -7,6 +7,8 @@ const Primary = styled.p`
   font-weight: 700;
   font-size: 32px;
   letter-spacing: -0.05em;
+  margin-left: 56px;
+  margin-bottom: 57px;
 `;
 
 const Secondary = styled.span`
