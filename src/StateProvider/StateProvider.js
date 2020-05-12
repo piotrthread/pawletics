@@ -4,6 +4,7 @@ import Context from "../context";
 
 const initialState = {
   currentDate: new Date(),
+  chosenDate: new Date(),
 };
 
 const reducer = (state, action) => {
@@ -16,6 +17,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         currentDate: setMonth(state.currentDate, action.payload),
+      };
+    case "SET_DATE":
+      return {
+        ...state,
+        chosenDate: action.payload,
       };
     default:
       return state;

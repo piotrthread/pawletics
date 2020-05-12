@@ -4,9 +4,11 @@ import GlobalStyle from "./GlobalStyle/GlobalStyle";
 import StateProvider from "./StateProvider/StateProvider";
 import DateMenu from "./components/DateMenu/DateMenu";
 import Calendar from "./components/Calendar/Calendar";
+import DayPanel from "./components/DayPanel/DayPanel";
 
 const Wrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 232px 750px 1fr;
 `;
 
 const App = () => {
@@ -16,6 +18,7 @@ const App = () => {
       <Wrapper>
         <DateMenu />
         <Calendar />
+        <DayPanel />
       </Wrapper>
     </StateProvider>
   );

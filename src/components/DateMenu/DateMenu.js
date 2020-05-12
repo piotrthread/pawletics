@@ -4,7 +4,7 @@ import ChangeYear from "../ChangeYear/ChangeYear";
 import ChangeMonth from "../ChangeMonth/ChangeMonth";
 
 const Wrapper = styled.div`
-  width: 232px;
+  /* width: 232px; */
   height: 100vh;
   display: flex;
   flex-direction: column;
