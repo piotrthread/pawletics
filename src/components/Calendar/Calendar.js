@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   width: 750px;
   height: 100vh;
   padding-top: 57px;
-  border-right: 1px solid black;
+  border-right: 1px solid lightgray;
 `;
 
 const DateMenu = () => {
