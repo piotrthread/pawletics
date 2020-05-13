@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Ellipsis } from "react-awesome-spinners";
+import Ellipsis from "./Ellipsis";
 
 const Wrapper = styled.div`
   height: 100vh;
