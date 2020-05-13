@@ -20,7 +20,7 @@ const Logout = styled.img`
   position: absolute;
   z-index: 2;
   bottom: 45px;
-  height: 30px;
+  height: 25px;
   margin-left: 45px;
   align-self: flex-start;
   justify-self: self-end;
