@@ -6,6 +6,7 @@ import { auth } from "../firebase";
 const initialState = {
   currentDate: new Date(),
   chosenDate: new Date(),
+  logging: false,
 };
 
 const reducer = (state, action) => {
@@ -32,6 +33,10 @@ const reducer = (state, action) => {
           action.payload.password
         );
       return state;
+    case "LOADING":
+      return { ...state, logging: true };
+    case "DONE":
+      return { ...state, logging: false };
     case "LOGOUT":
       auth.auth().signOut();
       return state;
@@ -44,9 +49,10 @@ const StateProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [user, setUser] = useState(null);
   useEffect(() => {
-    auth
+    const authorization = auth
       .auth()
       .onAuthStateChanged((user) => (user ? setUser(user.uid) : setUser(null)));
+    return () => authorization();
   }, []);
 
   return (

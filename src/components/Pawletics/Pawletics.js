@@ -5,6 +5,8 @@ import StateProvider from "../../StateProvider/StateProvider";
 import DateMenu from "../DateMenu/DateMenu";
 import Calendar from "../Calendar/Calendar";
 import DayPanel from "../DayPanel/DayPanel";
+import { useEffect, useContext } from "react";
+import Context from "../../context";
 
 const Wrapper = styled.div`
   display: grid;
@@ -12,6 +14,10 @@ const Wrapper = styled.div`
 `;
 
 const Pawletics = () => {
+  const { dispatch } = useContext(Context);
+  useEffect(() => {
+    dispatch("DONE"); // eslint-disable-next-line
+  }, []);
   return (
     <StateProvider>
       <GlobalStyle />
