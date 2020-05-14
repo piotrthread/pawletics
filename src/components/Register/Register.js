@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useFormik } from "formik";
 import { auth } from "../../firebase";
 
-import LoginWrapper from "./LoginWrapper";
+import RegisterWrapper from "./RegisterWrapper";
 import LogoWhite from "../Logo/LogoWhite";
 import Logging from "../Logging/Logging";
 
@@ -48,6 +48,7 @@ const LoginForm = styled.form`
 `;
 
 const Error = styled.p``;
+
 const Link = styled.a`
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -56,7 +57,7 @@ const Link = styled.a`
   margin-bottom: 10px;
 `;
 
-const Login = () => {
+const Register = () => {
   const { state, currentUser, dispatch } = useContext(Context);
   const [error, setError] = useState(null);
   const formik = useFormik({
@@ -68,7 +69,7 @@ const Login = () => {
       dispatch("LOADING");
       auth
         .auth()
-        .signInWithEmailAndPassword(values.email, values.password)
+        .createUserWithEmailAndPassword(values.email, values.password)
         .then(() => {
           currentUser && dispatch("DONE");
         })
@@ -78,11 +79,11 @@ const Login = () => {
             case "auth/invalid-email":
               setError("Email adress is badly formated.");
               break;
-            case "auth/wrong-password":
-              setError("Invalid password.");
+            case "auth/weak-password":
+              setError("Password must be 6 characters long.");
               break;
-            case "auth/user-not-found":
-              setError("No such user. User may have been deleted.");
+            case "auth/email-already-in-use":
+              setError("Email is already in use.");
               break;
             default:
               setError(err.message);
@@ -96,7 +97,7 @@ const Login = () => {
       {state.logging ? (
         <Logging />
       ) : (
-        <LoginWrapper>
+        <RegisterWrapper>
           <LogoWhite />
           <LoginForm onSubmit={formik.handleSubmit}>
             <Input
@@ -116,14 +117,14 @@ const Login = () => {
               onChange={formik.handleChange}
               value={formik.values.password}
             />
-            <Submit type="submit" value="LOGIN" />
-            <Link href="/register">or Register</Link>
+            <Submit type="submit" value="REGISTER" />
+            <Link href="/login">or Login</Link>
             <Error>{error}</Error>
           </LoginForm>
-        </LoginWrapper>
+        </RegisterWrapper>
       )}
     </>
   );
 };
 
-export default Login;
+export default Register;

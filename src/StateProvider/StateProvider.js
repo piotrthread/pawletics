@@ -25,14 +25,6 @@ const reducer = (state, action) => {
         ...state,
         chosenDate: action.payload,
       };
-    case "LOGIN":
-      auth
-        .auth()
-        .signInWithEmailAndPassword(
-          action.payload.email,
-          action.payload.password
-        );
-      return state;
     case "LOADING":
       return { ...state, logging: true };
     case "DONE":
