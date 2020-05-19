@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import Context from "../../context";
 import styled from "styled-components";
 import { useFormik } from "formik";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 
 import RegisterWrapper from "./RegisterWrapper";
 import LogoWhite from "../Logo/LogoWhite";
@@ -43,7 +43,7 @@ const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 250px;
+  height: 290px;
   align-items: center;
 `;
 
@@ -64,12 +64,19 @@ const Register = () => {
     initialValues: {
       email: "",
       password: "",
+      name: "",
     },
     onSubmit: (values) => {
       dispatch("LOADING");
       auth
         .auth()
         .createUserWithEmailAndPassword(values.email, values.password)
+        .then((res) => {
+          db.collection("users").doc(res.user.uid).set({
+            id: res.user.uid,
+            name: values.name,
+          });
+        })
         .then(() => {
           currentUser && dispatch("DONE");
         })
@@ -100,6 +107,15 @@ const Register = () => {
         <RegisterWrapper>
           <LogoWhite />
           <LoginForm onSubmit={formik.handleSubmit}>
+            <Input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="name"
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              autoComplete="off"
+            />
             <Input
               id="email"
               name="email"

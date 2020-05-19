@@ -1,7 +1,7 @@
 import React, { useReducer, useState, useEffect } from "react";
 import { addYears, subYears, setMonth } from "date-fns";
 import Context from "../context";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 
 const initialState = {
   currentDate: new Date(),
@@ -41,9 +41,16 @@ const StateProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [user, setUser] = useState(null);
   useEffect(() => {
-    const authorization = auth
-      .auth()
-      .onAuthStateChanged((user) => (user ? setUser(user.uid) : setUser(null)));
+    const authorization = auth.auth().onAuthStateChanged((user) => {
+      if (user) {
+        db.collection("users")
+          .doc(user.uid)
+          .get()
+          .then((res) => setUser(res.data()));
+      } else {
+        setUser(null);
+      }
+    });
     return () => authorization();
   }, []);
 

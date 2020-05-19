@@ -42,12 +42,21 @@ const Wrapper = styled.button`
 `;
 
 const Day = (props) => {
-  const { dispatch } = useContext(Context);
-  const today = new Date();
+  const { state, dispatch } = useContext(Context);
+  const today = state.chosenDate;
   return (
     <Wrapper onClick={() => dispatch("SET_DATE", props.date)}>
       {props.secondary ? (
-        <DayNumber secondary>{parseInt(format(props.date, "d"))}</DayNumber>
+        <DayNumber
+          secondary
+          current={
+            format(props.date, "MM/dd/yyyy") === format(today, "MM/dd/yyyy")
+              ? true
+              : false
+          }
+        >
+          {parseInt(format(props.date, "d"))}
+        </DayNumber>
       ) : (
         <DayNumber
           current={
