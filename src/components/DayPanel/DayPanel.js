@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import Context from "../../context";
 import { format } from "date-fns";
+import AddDogForm from "../AddDogForm/AddDogForm";
+import AddActivityForm from "../AddActivityForm/AddActivityForm";
 
 const Wrapper = styled.div`
   padding-top: 65px;
@@ -20,13 +22,36 @@ const Green = styled.span`
 `;
 
 const DayPanel = () => {
-  const { state } = useContext(Context);
+  const { state, currentUser, dispatch, userDogs, dogActivities } = useContext(
+    Context
+  );
+  useEffect(() => {
+    dispatch("LOAD_DOGS", currentUser);
+  }, []);
   return (
     <Wrapper>
       <Today>
         {format(state.chosenDate, "EEEE ")}
         <Green>{format(state.chosenDate, "d.MM.Y")}</Green>
       </Today>
+      {userDogs &&
+        userDogs.map((dog) => (
+          <>
+            <p>{dog.name}</p>
+            {dogActivities &&
+              dogActivities
+                .filter((el) => {
+                  return (
+                    el.dog_id === dog.id &&
+                    format(el.date, "MM/dd/yyyy") ===
+                      format(state.chosenDate, "MM/dd/yyyy")
+                  );
+                })
+                .map((el) => <p>{el.type}</p>)}
+            <AddActivityForm dogId={dog.id} />
+          </>
+        ))}
+      <AddDogForm />
     </Wrapper>
   );
 };

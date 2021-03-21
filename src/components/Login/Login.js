@@ -57,7 +57,7 @@ const Link = styled.a`
 `;
 
 const Login = () => {
-  const { state, currentUser, dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
   const [error, setError] = useState(null);
   const formik = useFormik({
     initialValues: {
@@ -70,7 +70,7 @@ const Login = () => {
         .auth()
         .signInWithEmailAndPassword(values.email, values.password)
         .then(() => {
-          currentUser && dispatch("DONE");
+          dispatch("DONE");
         })
         .catch((err) => {
           dispatch("DONE");
