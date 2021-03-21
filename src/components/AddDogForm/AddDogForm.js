@@ -11,7 +11,6 @@ const AddDogForm = () => {
       name: data.name,
       user_id: currentUser.id,
     });
-    addDog(data.name, currentUser.id);
     e.target.reset();
   };
   return (
