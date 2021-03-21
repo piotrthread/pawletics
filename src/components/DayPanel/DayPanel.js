@@ -26,7 +26,7 @@ const DayPanel = () => {
     Context
   );
   useEffect(() => {
-    dispatch("LOAD_DOGS", currentUser);
+    dispatch("LOAD_DOGS", currentUser); // eslint-disable-next-line
   }, []);
   return (
     <Wrapper>

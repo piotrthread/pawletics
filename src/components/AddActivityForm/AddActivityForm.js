@@ -5,7 +5,7 @@ import Context from "../../context";
 
 const AddActivityForm = (props) => {
   const { register, handleSubmit } = useForm();
-  const { currentUser, addDog, state, addActivity } = useContext(Context);
+  const { currentUser, state, addActivity } = useContext(Context);
   const onSubmit = (data, e) => {
     db.collection("activities").add({
       date: state.chosenDate,
