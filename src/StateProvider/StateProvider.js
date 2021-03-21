@@ -45,7 +45,6 @@ const StateProvider = (props) => {
   const [activities, setActivities] = useState(null);
   const [currentUserDogs, setCurrentUserDogs] = useState(null);
   useEffect(() => {
-    const userDogs = [];
     const userActivities = [];
     const authorization = auth.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -53,21 +52,6 @@ const StateProvider = (props) => {
           .doc(user.uid)
           .get()
           .then((res) => setUser(res.data()));
-        db.collection("dogs")
-          .where("user_id", "==", user.uid)
-          .get()
-          .then((response) => {
-            response.forEach((doc) => {
-              userDogs.push({
-                id: doc.id,
-                name: doc.data().name,
-                user_id: doc.data().user_id,
-              });
-            });
-          })
-          .then(() => {
-            setCurrentUserDogs(userDogs);
-          });
         db.collection("activities")
           .where("user_id", "==", user.uid)
           .get()
@@ -99,11 +83,8 @@ const StateProvider = (props) => {
         currentUser: user,
         userDogs: currentUserDogs,
         dogActivities: activities,
-        addDog: (name, user_id) => {
-          setCurrentUserDogs([
-            ...currentUserDogs,
-            { name: name, user_id: user_id },
-          ]);
+        setCurrentUserDogs: (dogs) => {
+          setCurrentUserDogs(dogs);
         },
         addActivity: (date, type, user_id, dog_id) => {
           setActivities([
