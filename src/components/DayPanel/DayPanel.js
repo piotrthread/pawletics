@@ -47,7 +47,7 @@ const DayPanel = () => {
       .then(() => {
         setCurrentUserDogs(userDogs);
       }); // eslint-disable-next-line
-  }, [userDogs]);
+  }, []);
   return (
     <Wrapper>
       <Today>
