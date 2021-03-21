@@ -36,7 +36,7 @@ const DayPanel = () => {
       </Today>
       {userDogs &&
         userDogs.map((dog) => (
-          <>
+          <div key={dog.id}>
             <p>{dog.name}</p>
             {dogActivities &&
               dogActivities
@@ -47,9 +47,9 @@ const DayPanel = () => {
                       format(state.chosenDate, "MM/dd/yyyy")
                   );
                 })
-                .map((el) => <p>{el.type}</p>)}
+                .map((el) => <p key={el.id}>{el.type}</p>)}
             <AddActivityForm dogId={dog.id} />
-          </>
+          </div>
         ))}
       <AddDogForm />
     </Wrapper>
