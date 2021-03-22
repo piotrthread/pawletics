@@ -31,13 +31,13 @@ const DayPanel = () => {
     currentUser,
   } = useContext(Context);
   useEffect(() => {
-    const userDogs = [];
+    const tempUserDogs = [];
     db.collection("dogs")
       .where("user_id", "==", currentUser.id)
       .get()
       .then((response) => {
         response.forEach((doc) => {
-          userDogs.push({
+          tempUserDogs.push({
             id: doc.id,
             name: doc.data().name,
             user_id: doc.data().user_id,
@@ -45,9 +45,9 @@ const DayPanel = () => {
         });
       })
       .then(() => {
-        setCurrentUserDogs(userDogs);
+        setCurrentUserDogs(tempUserDogs);
       }); // eslint-disable-next-line
-  }, []);
+  }, [userDogs]);
   return (
     <Wrapper>
       <Today>
