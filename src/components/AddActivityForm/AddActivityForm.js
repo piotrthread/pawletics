@@ -28,13 +28,14 @@ const AddActivityForm = (props) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-        <input
-          type="text"
-          name="type"
-          ref={register}
-          placeholder="type"
-          required
-        />
+        <select name="type" ref={register}>
+          <option value="Frisbee">Frisbee</option>
+          <option value="Agility">Agility</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Spacer">Spacer</option>
+          <option value="Węszenie">Węszenie</option>
+          <option value="Sztuczki">Sztuczki</option>
+        </select>
         <input type="submit" value="ADD" />
       </form>
     </>

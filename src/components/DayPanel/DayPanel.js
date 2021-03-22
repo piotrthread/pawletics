@@ -46,6 +46,8 @@ const DayPanel = () => {
             <AddActivityForm dogId={dog.id} />
           </div>
         ))}
+      <br />
+      <br />
       <AddDogForm />
     </Wrapper>
   );
