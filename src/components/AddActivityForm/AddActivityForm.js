@@ -7,13 +7,22 @@ const AddActivityForm = (props) => {
   const { register, handleSubmit } = useForm();
   const { currentUser, state, addActivity } = useContext(Context);
   const onSubmit = (data, e) => {
-    db.collection("activities").add({
-      date: state.chosenDate,
-      type: data.type,
-      user_id: currentUser.id,
-      dog_id: props.dogId,
-    });
-    addActivity(state.chosenDate, data.type, currentUser.id, props.dogId);
+    db.collection("activities")
+      .add({
+        date: state.chosenDate,
+        type: data.type,
+        user_id: currentUser.id,
+        dog_id: props.dogId,
+      })
+      .then((res) =>
+        addActivity(
+          res.id,
+          state.chosenDate,
+          props.dogId,
+          data.type,
+          currentUser.id
+        )
+      );
     e.target.reset();
   };
   return (

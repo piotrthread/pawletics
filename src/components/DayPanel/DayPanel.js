@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Context from "../../context";
 import { format } from "date-fns";
 import AddDogForm from "../AddDogForm/AddDogForm";
 import AddActivityForm from "../AddActivityForm/AddActivityForm";
-import { db } from "../../firebase";
 
 const Wrapper = styled.div`
   padding-top: 65px;
@@ -23,31 +22,7 @@ const Green = styled.span`
 `;
 
 const DayPanel = () => {
-  const {
-    state,
-    userDogs,
-    dogActivities,
-    setCurrentUserDogs,
-    currentUser,
-  } = useContext(Context);
-  useEffect(() => {
-    const tempUserDogs = [];
-    db.collection("dogs")
-      .where("user_id", "==", currentUser.id)
-      .get()
-      .then((response) => {
-        response.forEach((doc) => {
-          tempUserDogs.push({
-            id: doc.id,
-            name: doc.data().name,
-            user_id: doc.data().user_id,
-          });
-        });
-      })
-      .then(() => {
-        setCurrentUserDogs(tempUserDogs);
-      }); // eslint-disable-next-line
-  }, [userDogs]);
+  const { state, userDogs, dogActivities } = useContext(Context);
   return (
     <Wrapper>
       <Today>

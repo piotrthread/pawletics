@@ -5,12 +5,14 @@ import Context from "../../context";
 
 const AddDogForm = () => {
   const { register, handleSubmit } = useForm();
-  const { currentUser } = useContext(Context);
+  const { currentUser, addDog } = useContext(Context);
   const onSubmit = (data, e) => {
-    db.collection("dogs").add({
-      name: data.name,
-      user_id: currentUser.id,
-    });
+    db.collection("dogs")
+      .add({
+        name: data.name,
+        user_id: currentUser.id,
+      })
+      .then((res) => addDog(res.id, data.name, currentUser.id));
     e.target.reset();
   };
   return (
