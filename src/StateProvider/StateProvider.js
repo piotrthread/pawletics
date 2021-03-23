@@ -1,5 +1,5 @@
 import React, { useReducer, useState, useEffect } from "react";
-import { addYears, subYears, setMonth } from "date-fns";
+import { addYears, subYears, setMonth, subMonths, addMonths } from "date-fns";
 import Context from "../context";
 import { auth, db } from "../firebase";
 
@@ -15,6 +15,10 @@ const reducer = (state, action) => {
       return { ...state, currentDate: addYears(state.currentDate, 1) };
     case "PREV_YEAR":
       return { ...state, currentDate: subYears(state.currentDate, 1) };
+    case "NEXT_MONTH":
+      return { ...state, currentDate: addMonths(state.currentDate, 1) };
+    case "PREV_MONTH":
+      return { ...state, currentDate: subMonths(state.currentDate, 1) };
     case "SET_MONTH":
       return {
         ...state,
